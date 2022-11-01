@@ -1,5 +1,6 @@
 import 'package:night_movie_app/core/api/api_provider.dart';
 import 'package:night_movie_app/core/constants/app_constants.dart';
+import 'package:night_movie_app/core/errors/exceptions.dart';
 import 'package:night_movie_app/features/movies/data/models/movie_model.dart';
 
 abstract class MoviesRemoteDataSource {
@@ -14,10 +15,14 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   MoviesRemoteDataSourceImpl({required this.apiProvider});
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {
-    final result = await apiProvider.getData(AppConstants.nowPlayingEndPoint);
-    return List.from(result['results'])
-        .map((result) => MovieModel.fromJson(result))
-        .toList();
+    try {
+      final result = await apiProvider.getData(AppConstants.nowPlayingEndPoint);
+      return List.from(result['results'])
+          .map((result) => MovieModel.fromJson(result))
+          .toList();
+    } on ServerException catch (err) {
+      throw ServerException(errorModel: err.errorModel);
+    }
   }
 
   @override

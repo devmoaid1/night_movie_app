@@ -40,7 +40,7 @@ class DioConsumer implements ApiProvider {
   Future getData(String path, {Map<String, dynamic>? queryParams}) async {
     try {
       final response = await client.get(path, queryParameters: queryParams);
-      return response;
+      return response.data;
     } on DioError catch (err) {
       _handleDioError(err);
     }
