@@ -1,7 +1,17 @@
 part of 'movies_bloc.dart';
 
-abstract class MoviesBlocState extends Equatable {
-  const MoviesBlocState();
+class MoviesBlocState extends Equatable {
+  final List<Movie> nowPlayingMovies;
+  final List<Movie> popularMovies;
+  final List<Movie> topRatedMovies;
+  final RequestState requestState;
+  final String error;
+  const MoviesBlocState(
+      {this.nowPlayingMovies = const [],
+      this.popularMovies = const [],
+      this.topRatedMovies = const [],
+      this.requestState = RequestState.loading,
+      this.error = ''});
 
   @override
   List<Object> get props => [];

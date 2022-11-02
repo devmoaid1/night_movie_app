@@ -9,7 +9,7 @@ import 'package:night_movie_app/features/movies/domain/repositories/movies_repos
 import 'package:night_movie_app/features/movies/domain/usecases/get_now_playing_movies.dart';
 import 'package:night_movie_app/features/movies/domain/usecases/get_popular_movies.dart';
 import 'package:night_movie_app/features/movies/domain/usecases/get_top_rated_movies.dart';
-import 'package:night_movie_app/features/movies/presentation/blocs/cubit/movies_cubit.dart';
+import 'package:night_movie_app/features/movies/presentation/blocs/bloc/movies_bloc.dart';
 
 void setupLocator() {
   Get.lazyPut(() => Dio());
@@ -26,5 +26,8 @@ void setupLocator() {
   Get.lazyPut(() => GetPopularMovies(moviesRepository: Get.find()));
   Get.lazyPut(() => GetTopRatedMovies(moviesRepository: Get.find()));
 
-  Get.lazyPut(() => MoviesCubit(getNowPlayingMovies: Get.find()));
+  Get.lazyPut(() => MoviesBloc(
+      getNowPlayingMovies: Get.find(),
+      getPopularMovies: Get.find(),
+      getTopRatedMovies: Get.find()));
 }

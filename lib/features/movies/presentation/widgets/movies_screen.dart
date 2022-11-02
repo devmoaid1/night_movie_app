@@ -58,21 +58,7 @@
 //                             fit: BoxFit.cover,
 //                           ),
 //                         ),
-//                         Align(
-//                           alignment: Alignment.bottomCenter,
-//                           child: Column(
-//                             mainAxisAlignment: MainAxisAlignment.end,
-//                             children: [
-//                               Padding(
-//                                 padding: const EdgeInsets.only(bottom: 16.0),
-//                                 child: Row(
-//                                   mainAxisAlignment: MainAxisAlignment.center,
-//                                   children: [
-//                                     const Icon(
-//                                       Icons.circle,
-//                                       color: Colors.redAccent,
-//                                       size: 16.0,
-//                                     ),
+//                           ),
 //                                     const SizedBox(width: 4.0),
 //                                     Text(
 //                                       'Now Playing'.toUpperCase(),
@@ -86,7 +72,21 @@
 //                               Padding(
 //                                 padding: const EdgeInsets.only(bottom: 16.0),
 //                                 child: Text(
-//                                   item.title!,
+//                                    Align(
+//                           alignment: Alignment.bottomCenter,
+//                           child: Column(
+//                             mainAxisAlignment: MainAxisAlignment.end,
+//                             children: [
+//                               Padding(
+//                                 padding: const EdgeInsets.only(bottom: 16.0),
+//                                 child: Row(
+//                                   mainAxisAlignment: MainAxisAlignment.center,
+//                                   children: [
+//                                     const Icon(
+//                                       Icons.circle,
+//                                       color: Colors.redAccent,
+//                                       size: 16.0,
+//                                  item.title!,
 //                                   textAlign: TextAlign.center,
 //                                   style: const TextStyle(
 //                                     fontSize: 24,

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:night_movie_app/core/enums/request_state.dart';
 import 'package:night_movie_app/core/usecases/usecases.dart';
 import 'package:night_movie_app/features/movies/domain/usecases/get_now_playing_movies.dart';
 import 'package:night_movie_app/features/movies/domain/usecases/get_popular_movies.dart';
@@ -18,18 +19,24 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesBlocState> {
       {required this.getNowPlayingMovies,
       required this.getPopularMovies,
       required this.getTopRatedMovies})
-      : super(MoviesInitial()) {
-    on<GetNowPlayingMoviesEvent>((event, emit) {
-      _mapGetNowPlayingMoviesToState(event, emit);
+      : super(const MoviesBlocState()) {
+    on<GetNowPlayingMoviesEvent>((event, emit) async {
+      await Future.delayed(
+        const Duration(seconds: 1),
+        () => _mapGetNowPlayingMoviesToState(event, emit),
+      );
     });
   }
 
   void _mapGetNowPlayingMoviesToState(
       GetNowPlayingMoviesEvent event, Emitter emit) async {
-    emit(LoadingState());
     final response = await getNowPlayingMovies(NoParams());
 
-    response.fold((failure) => emit(ErrorState(message: failure.toString())),
-        (movies) => emit(NowPlayingMovies(movies: movies)));
+    response.fold(
+        (failure) => emit(const MoviesBlocState(
+            requestState: RequestState.error,
+            error: "something went wrong with now playing movies")),
+        (movies) => emit(MoviesBlocState(
+            nowPlayingMovies: movies, requestState: RequestState.loaded)));
   }
 }
