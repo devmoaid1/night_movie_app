@@ -13,9 +13,11 @@ class NightMovieApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Night Movie',
             theme: ThemeData(
               fontFamily: "Poppins",
+              scaffoldBackgroundColor: const Color(0xff303030),
               primarySwatch: Colors.blue,
             ),
             home: const MoviesView(),
