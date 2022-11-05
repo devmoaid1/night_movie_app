@@ -10,6 +10,8 @@ import 'package:night_movie_app/core/enums/request_state.dart';
 import 'package:night_movie_app/features/movies/presentation/blocs/bloc/movies_bloc.dart';
 
 import '../../domain/entites/movie.dart';
+import '../widgets/now_playing_movie_card.dart';
+import '../widgets/title_row.dart';
 
 class MoviesView extends StatelessWidget {
   const MoviesView({super.key});
@@ -51,6 +53,37 @@ class MoviesViewBody extends StatelessWidget {
               SliverToBoxAdapter(
                   child: NowPlayingMoviesSection(
                 nowPlayingMovies: state.nowPlayingMovies,
+              )),
+              const SliverToBoxAdapter(
+                child: TitleRow(title: "Popular"),
+              ),
+              SliverToBoxAdapter(
+                  child: SizedBox(
+                height: 180.h,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    itemCount: state.nowPlayingMovies.length,
+                    itemBuilder: (context, index) {
+                      final movie = state.nowPlayingMovies[index];
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.amber,
+                        ),
+                        width: 100.w,
+                        margin: EdgeInsets.only(right: 5.w, bottom: 5.h),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: ExtendedImage.network(
+                            AppConstants.baseImageUrl(movie.backdropPath),
+                            cache: true,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    }),
               ))
             ],
           );
@@ -81,73 +114,5 @@ class NowPlayingMoviesSection extends StatelessWidget {
               viewportFraction: 1,
               height: MediaQuery.of(context).size.height * 0.5)),
     );
-  }
-}
-
-class NowPlayingMovieCard extends StatelessWidget {
-  final Movie movie;
-  const NowPlayingMovieCard({super.key, required this.movie});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(key: UniqueKey(), children: [
-      ShaderMask(
-        shaderCallback: (rect) {
-          return const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              // fromLTRB
-              Colors.transparent,
-              Colors.black,
-              Colors.black,
-              Colors.transparent,
-            ],
-            stops: [0, 0.3, 0.5, 1],
-          ).createShader(
-            Rect.fromLTRB(0, 0, rect.width, rect.height),
-          );
-        },
-        blendMode: BlendMode.dstIn,
-        child: ExtendedImage.network(
-          AppConstants.baseImageUrl(movie.backdropPath),
-          cache: true,
-          fit: BoxFit.cover,
-          height: MediaQuery.of(context).size.height * 0.55,
-        ),
-      ),
-      Align(
-          alignment: Alignment.bottomCenter,
-          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Icon(
-                    Icons.circle,
-                    color: Colors.redAccent,
-                    size: 16.0.h,
-                  ),
-                  Text("Now Playing",
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                      )),
-                ])),
-            Container(
-              constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.6),
-              child: Text(movie.title,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                  )),
-            ),
-          ]))
-    ]);
   }
 }
