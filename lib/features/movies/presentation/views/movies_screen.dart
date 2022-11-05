@@ -1,16 +1,12 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:night_movie_app/core/constants/app_constants.dart';
 import 'package:night_movie_app/core/enums/request_state.dart';
 import 'package:night_movie_app/features/movies/presentation/blocs/bloc/movies_bloc.dart';
+import 'package:night_movie_app/features/movies/presentation/widgets/movie_card.dart';
 
-import '../../domain/entites/movie.dart';
-import '../widgets/now_playing_movie_card.dart';
+import '../widgets/now_playing_movies_section.dart';
 import '../widgets/title_row.dart';
 
 class MoviesView extends StatelessWidget {
@@ -50,10 +46,13 @@ class MoviesViewBody extends StatelessWidget {
 
           return CustomScrollView(
             slivers: [
+              // now playing movies
               SliverToBoxAdapter(
                   child: NowPlayingMoviesSection(
                 nowPlayingMovies: state.nowPlayingMovies,
               )),
+
+              // popular movies
               const SliverToBoxAdapter(
                 child: TitleRow(title: "Popular"),
               ),
@@ -67,52 +66,32 @@ class MoviesViewBody extends StatelessWidget {
                     itemCount: state.nowPlayingMovies.length,
                     itemBuilder: (context, index) {
                       final movie = state.nowPlayingMovies[index];
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.amber,
-                        ),
-                        width: 100.w,
-                        margin: EdgeInsets.only(right: 5.w, bottom: 5.h),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: ExtendedImage.network(
-                            AppConstants.baseImageUrl(movie.backdropPath),
-                            cache: true,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
+                      return MovieCard(movie: movie);
+                    }),
+              )),
+
+              // top rated section
+
+              const SliverToBoxAdapter(
+                child: TitleRow(title: "Top Rated"),
+              ),
+              SliverToBoxAdapter(
+                  child: SizedBox(
+                height: 180.h,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    itemCount: state.nowPlayingMovies.length,
+                    itemBuilder: (context, index) {
+                      final movie = state.nowPlayingMovies[index];
+                      return MovieCard(movie: movie);
                     }),
               ))
             ],
           );
         },
       ),
-    );
-  }
-}
-
-class NowPlayingMoviesSection extends StatelessWidget {
-  final List<Movie> nowPlayingMovies;
-  const NowPlayingMoviesSection({super.key, required this.nowPlayingMovies});
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeIn(
-      duration: const Duration(milliseconds: 500),
-      child: CarouselSlider.builder(
-          itemCount: nowPlayingMovies.length,
-          itemBuilder: (context, index, realIndex) {
-            final movie = nowPlayingMovies[index];
-            return NowPlayingMovieCard(
-              movie: movie,
-            );
-          },
-          options: CarouselOptions(
-              autoPlay: true,
-              viewportFraction: 1,
-              height: MediaQuery.of(context).size.height * 0.5)),
     );
   }
 }
