@@ -22,8 +22,22 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       : super(const MoviesState()) {
     on<GetNowPlayingMoviesEvent>((event, emit) async {
       await Future.delayed(
-        const Duration(seconds: 1),
+        const Duration(milliseconds: 200),
         () => _mapGetNowPlayingMoviesToState(event, emit),
+      );
+    });
+
+    on<GetPopularMoviesEvent>((event, emit) async {
+      await Future.delayed(
+        const Duration(milliseconds: 200),
+        () => _mapGetPopularMoviesToState(event, emit),
+      );
+    });
+
+    on<GetTopRatedMoviesEvent>((event, emit) async {
+      await Future.delayed(
+        const Duration(milliseconds: 200),
+        () => _mapGetTopRatedMoviesToState(event, emit),
       );
     });
   }
@@ -33,10 +47,34 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     final response = await getNowPlayingMovies(NoParams());
 
     response.fold(
-        (failure) => emit(const MoviesState(
+        (failure) => emit(state.copyWith(
+            nowPlayingState: RequestState.error,
+            nowPlayingError: "something went wrong with now playing movies")),
+        (movies) => emit(state.copyWith(
+            nowPlayingMovies: movies, nowPlayingState: RequestState.loaded)));
+  }
+
+  void _mapGetPopularMoviesToState(
+      GetPopularMoviesEvent event, Emitter emit) async {
+    final response = await getPopularMovies(NoParams());
+
+    response.fold(
+        (failure) => emit(state.copyWith(
             popularState: RequestState.error,
             popularError: "something went wrong with now playing movies")),
-        (movies) => emit(MoviesState(
-            nowPlayingMovies: movies, popularState: RequestState.loaded)));
+        (movies) => emit(state.copyWith(
+            popularMovies: movies, popularState: RequestState.loaded)));
+  }
+
+  void _mapGetTopRatedMoviesToState(
+      GetTopRatedMoviesEvent event, Emitter emit) async {
+    final response = await getTopRatedMovies(NoParams());
+
+    response.fold(
+        (failure) => emit(state.copyWith(
+            topRatedState: RequestState.error,
+            topRatedError: "something went wrong with now playing movies")),
+        (movies) => emit(state.copyWith(
+            topRatedMovies: movies, topRatedState: RequestState.loaded)));
   }
 }

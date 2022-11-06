@@ -27,14 +27,16 @@ class MoviesViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MoviesBloc>(
-        create: (context) =>
-            Get.find<MoviesBloc>()..add(GetNowPlayingMoviesEvent()),
+        create: (context) => Get.find<MoviesBloc>()
+          ..add(GetNowPlayingMoviesEvent())
+          ..add(GetPopularMoviesEvent())
+          ..add(GetTopRatedMoviesEvent()),
         child: const CustomScrollView(
           slivers: [
-            // now playing movies
+            // now playing  section
             SliverToBoxAdapter(child: NowPlayingMoviesSection()),
 
-            // popular movies
+            // popular  section
             SliverToBoxAdapter(
               child: TitleRow(title: "Popular"),
             ),
