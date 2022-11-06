@@ -34,9 +34,9 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
     response.fold(
         (failure) => emit(const MoviesState(
-            requestState: RequestState.error,
-            error: "something went wrong with now playing movies")),
+            popularState: RequestState.error,
+            popularError: "something went wrong with now playing movies")),
         (movies) => emit(MoviesState(
-            nowPlayingMovies: movies, requestState: RequestState.loaded)));
+            nowPlayingMovies: movies, popularState: RequestState.loaded)));
   }
 }
