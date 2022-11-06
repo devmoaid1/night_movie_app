@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:night_movie_app/features/movies/presentation/widgets/movie_card.
 
 import '../widgets/now_playing_movies_section.dart';
 import '../widgets/title_row.dart';
+import '../widgets/top_rated_movies_section.dart';
 
 class MoviesView extends StatelessWidget {
   const MoviesView({super.key});
@@ -30,7 +32,7 @@ class MoviesViewBody extends StatelessWidget {
     return BlocProvider<MoviesBloc>(
       create: (context) =>
           Get.find<MoviesBloc>()..add(GetNowPlayingMoviesEvent()),
-      child: BlocBuilder<MoviesBloc, MoviesBlocState>(
+      child: BlocBuilder<MoviesBloc, MoviesState>(
         builder: (context, state) {
           if (state.requestState == RequestState.loading) {
             return const Center(
@@ -57,17 +59,20 @@ class MoviesViewBody extends StatelessWidget {
                 child: TitleRow(title: "Popular"),
               ),
               SliverToBoxAdapter(
-                  child: SizedBox(
-                height: 180.h,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(vertical: 5.h),
-                    itemCount: state.nowPlayingMovies.length,
-                    itemBuilder: (context, index) {
-                      final movie = state.nowPlayingMovies[index];
-                      return MovieCard(movie: movie);
-                    }),
+                  child: FadeIn(
+                duration: const Duration(milliseconds: 500),
+                child: SizedBox(
+                  height: 180.h,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(vertical: 5.h),
+                      itemCount: state.nowPlayingMovies.length,
+                      itemBuilder: (context, index) {
+                        final movie = state.nowPlayingMovies[index];
+                        return MovieCard(movie: movie);
+                      }),
+                ),
               )),
 
               // top rated section
@@ -75,19 +80,7 @@ class MoviesViewBody extends StatelessWidget {
               const SliverToBoxAdapter(
                 child: TitleRow(title: "Top Rated"),
               ),
-              SliverToBoxAdapter(
-                  child: SizedBox(
-                height: 180.h,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(vertical: 5.h),
-                    itemCount: state.nowPlayingMovies.length,
-                    itemBuilder: (context, index) {
-                      final movie = state.nowPlayingMovies[index];
-                      return MovieCard(movie: movie);
-                    }),
-              ))
+              const SliverToBoxAdapter(child: TopRatedSection())
             ],
           );
         },
