@@ -13,8 +13,8 @@ class GetMovieDetailsEvent extends MovieDetailsEvent {
   const GetMovieDetailsEvent({required this.movieId});
 }
 
-class GetMovieRecommendedMovies extends MovieDetailsEvent {
+class GetMovieRecommendedMoviesEvent extends MovieDetailsEvent {
   final String movieId;
 
-  const GetMovieRecommendedMovies({required this.movieId});
+  const GetMovieRecommendedMoviesEvent({required this.movieId});
 }
