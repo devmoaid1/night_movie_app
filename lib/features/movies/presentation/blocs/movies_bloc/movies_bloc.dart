@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:night_movie_app/core/enums/request_state.dart';
@@ -20,29 +22,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       required this.getPopularMovies,
       required this.getTopRatedMovies})
       : super(const MoviesState()) {
-    on<GetNowPlayingMoviesEvent>((event, emit) async {
-      await Future.delayed(
-        const Duration(seconds: 1),
-        () => _mapGetNowPlayingMoviesToState(event, emit),
-      );
-    });
+    on<GetNowPlayingMoviesEvent>(_mapGetNowPlayingMoviesToState);
 
-    on<GetPopularMoviesEvent>((event, emit) async {
-      await Future.delayed(
-        const Duration(seconds: 1),
-        () => _mapGetPopularMoviesToState(event, emit),
-      );
-    });
+    on<GetPopularMoviesEvent>(_mapGetPopularMoviesToState);
 
-    on<GetTopRatedMoviesEvent>((event, emit) async {
-      await Future.delayed(
-        const Duration(seconds: 1),
-        () => _mapGetTopRatedMoviesToState(event, emit),
-      );
-    });
+    on<GetTopRatedMoviesEvent>(_mapGetTopRatedMoviesToState);
   }
 
-  void _mapGetNowPlayingMoviesToState(
+  FutureOr<void> _mapGetNowPlayingMoviesToState(
       GetNowPlayingMoviesEvent event, Emitter emit) async {
     final response = await getNowPlayingMovies(NoParams());
 
@@ -54,7 +41,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
             nowPlayingMovies: movies, nowPlayingState: RequestState.loaded)));
   }
 
-  void _mapGetPopularMoviesToState(
+  FutureOr<void> _mapGetPopularMoviesToState(
       GetPopularMoviesEvent event, Emitter emit) async {
     final response = await getPopularMovies(NoParams());
 
@@ -66,7 +53,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
             popularMovies: movies, popularState: RequestState.loaded)));
   }
 
-  void _mapGetTopRatedMoviesToState(
+  FutureOr<void> _mapGetTopRatedMoviesToState(
       GetTopRatedMoviesEvent event, Emitter emit) async {
     final response = await getTopRatedMovies(NoParams());
 

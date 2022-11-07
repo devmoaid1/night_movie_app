@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/enums/request_state.dart';
-import '../blocs/bloc/movies_bloc.dart';
+import '../blocs/movies_bloc/movies_bloc.dart';
 import 'movie_card.dart';
 
 class PopularSection extends StatelessWidget {

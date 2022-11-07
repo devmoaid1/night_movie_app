@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:night_movie_app/features/movies/presentation/blocs/bloc/movies_bloc.dart';
+import 'package:night_movie_app/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 
 import '../widgets/now_playing_movies_section.dart';
 import '../widgets/popular_section.dart';
