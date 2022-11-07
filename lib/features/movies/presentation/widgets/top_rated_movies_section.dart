@@ -15,10 +15,10 @@ class TopRatedSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesBloc, MoviesState>(
+      key: UniqueKey(),
+      buildWhen: (previous, current) =>
+          previous.topRatedState != current.topRatedState,
       builder: (context, state) {
-        print("NowPlaying state : ${state.nowPlayingState}");
-        print("Popular state : ${state.popularState}");
-        print("Top Rated state : ${state.topRatedState}");
         switch (state.topRatedState) {
           case RequestState.loading:
             return SizedBox(

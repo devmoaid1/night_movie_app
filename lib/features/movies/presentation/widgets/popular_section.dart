@@ -15,6 +15,9 @@ class PopularSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesBloc, MoviesState>(
+      key: UniqueKey(),
+      buildWhen: (previous, current) =>
+          previous.popularState != current.popularState,
       builder: (context, state) {
         switch (state.popularState) {
           case RequestState.loading:
