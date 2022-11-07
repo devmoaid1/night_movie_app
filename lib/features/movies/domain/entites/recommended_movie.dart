@@ -1,6 +1,11 @@
-class RecommendedMovie {
+import 'package:equatable/equatable.dart';
+
+class RecommendedMovie extends Equatable {
   final int? id;
   final String? backdropPath;
 
-  RecommendedMovie({this.id, this.backdropPath});
+  const RecommendedMovie({this.id, this.backdropPath});
+
+  @override
+  List<Object?> get props => [id, backdropPath];
 }
