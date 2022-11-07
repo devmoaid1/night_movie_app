@@ -7,7 +7,7 @@ import 'package:night_movie_app/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:night_movie_app/features/movies/domain/repositories/movie_details_repository.dart';
 
-class MovieDetailsRepositoryImpl implements MovieDetilsRepository {
+class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
   final MovieDetailsDataSource movieDetailsDataSource;
 
   MovieDetailsRepositoryImpl({required this.movieDetailsDataSource});

@@ -4,7 +4,7 @@ import 'package:night_movie_app/features/movies/domain/entites/recommended_movie
 
 import '../../../../core/errors/failures.dart';
 
-abstract class MovieDetilsRepository {
+abstract class MovieDetailsRepository {
   Future<Either<Failure, MovieDetails>> getMovieDetails({required String id});
   Future<Either<Failure, List<RecommendedMovie>>> getMovieRecommendedMovies(
       {required String id});
