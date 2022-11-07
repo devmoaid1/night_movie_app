@@ -6,12 +6,14 @@ class AppImage extends StatelessWidget {
   final String? path;
   final double? height;
   final double? width;
+  final Widget? placeHolder;
 
   const AppImage(
       {super.key,
       this.fit = BoxFit.cover,
       this.height = 20,
       this.width = 20,
+      this.placeHolder,
       this.path = ""});
 
   @override
@@ -24,9 +26,10 @@ class AppImage extends StatelessWidget {
         printError: true, loadStateChanged: (ExtendedImageState state) {
       switch (state.extendedImageLoadState) {
         case LoadState.loading:
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
+          return placeHolder ??
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
+              );
 
         case LoadState.completed:
           return ExtendedRawImage(

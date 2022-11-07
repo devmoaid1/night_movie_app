@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/widgets/app_image.dart';
@@ -25,6 +26,18 @@ class MovieCard extends StatelessWidget {
           child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: AppImage(
+                placeHolder: Shimmer.fromColors(
+                  baseColor: Colors.grey[850]!,
+                  highlightColor: Colors.grey[800]!,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
                 height: MediaQuery.of(context).size.height * 0.55,
                 path: AppConstants.baseImageUrl(movie.backdropPath),
               )),

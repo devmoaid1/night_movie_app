@@ -34,9 +34,9 @@ class PopularSection extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(vertical: 5.h),
-                    itemCount: state.nowPlayingMovies.length,
+                    itemCount: state.popularMovies.length,
                     itemBuilder: (context, index) {
-                      final movie = state.nowPlayingMovies[index];
+                      final movie = state.popularMovies[index];
                       return MovieCard(movie: movie);
                     }),
               ),

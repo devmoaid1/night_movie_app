@@ -18,7 +18,7 @@ class NowPlayingMoviesSection extends StatelessWidget {
         switch (state.nowPlayingState) {
           case RequestState.loading:
             return SizedBox(
-              height: 180.h,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: const Center(
                 child: CircularProgressIndicator.adaptive(),
               ),

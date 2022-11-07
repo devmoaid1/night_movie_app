@@ -16,6 +16,9 @@ class TopRatedSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesBloc, MoviesState>(
       builder: (context, state) {
+        print("NowPlaying state : ${state.nowPlayingState}");
+        print("Popular state : ${state.popularState}");
+        print("Top Rated state : ${state.topRatedState}");
         switch (state.topRatedState) {
           case RequestState.loading:
             return SizedBox(
@@ -34,9 +37,9 @@ class TopRatedSection extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(vertical: 5.h),
-                    itemCount: state.nowPlayingMovies.length,
+                    itemCount: state.topRatedMovies.length,
                     itemBuilder: (context, index) {
-                      final movie = state.nowPlayingMovies[index];
+                      final movie = state.topRatedMovies[index];
                       return MovieCard(movie: movie);
                     }),
               ),
