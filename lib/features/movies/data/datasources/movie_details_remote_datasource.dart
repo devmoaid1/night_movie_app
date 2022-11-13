@@ -7,15 +7,15 @@ import 'package:night_movie_app/features/movies/domain/entites/recommended_movie
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/errors/exceptions.dart';
 
-abstract class MovieDetailsDataSource {
+abstract class MovieDetailsRemoteDataSource {
   Future<MovieDetails> getMovieDetails({required String id});
   Future<List<RecommendedMovie>> getRecommendedMovies({required String id});
 }
 
-class MovieDetailsDataRemoteDataSource implements MovieDetailsDataSource {
+class MovieDetailsRemoteDataSourceImpl implements MovieDetailsRemoteDataSource {
   final ApiProvider apiProvider;
 
-  MovieDetailsDataRemoteDataSource({required this.apiProvider});
+  MovieDetailsRemoteDataSourceImpl({required this.apiProvider});
 
   @override
   Future<MovieDetails> getMovieDetails({required String id}) async {
