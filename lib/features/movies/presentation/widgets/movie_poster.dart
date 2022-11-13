@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,21 +25,24 @@ class MoviePoster extends StatelessWidget {
             );
 
           case RequestState.loaded:
-            return Stack(children: [
-              AspectRatio(
-                aspectRatio: 12 / 8,
-                child: AppImage(
-                    path: AppConstants.baseImageUrl(
-                        state.movieDetails!.posterPath!),
-                    fit: BoxFit.fill),
-              ),
-              Positioned(
-                top: 20,
-                left: 10,
-                child: Icon(Icons.arrow_back_ios,
-                    color: Colors.white, size: 25.sp),
-              )
-            ]);
+            return FadeIn(
+              duration: const Duration(milliseconds: 600),
+              child: Stack(children: [
+                AspectRatio(
+                  aspectRatio: 12 / 8,
+                  child: AppImage(
+                      path: AppConstants.baseImageUrl(
+                          state.movieDetails!.posterPath!),
+                      fit: BoxFit.fill),
+                ),
+                Positioned(
+                  top: 20,
+                  left: 10,
+                  child: Icon(Icons.arrow_back_ios,
+                      color: Colors.white, size: 25.sp),
+                )
+              ]),
+            );
 
           case RequestState.error:
             return Center(

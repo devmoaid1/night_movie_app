@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:night_movie_app/features/movies/domain/entites/recommended_movie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants/app_constants.dart';
@@ -7,8 +8,9 @@ import '../../../../core/widgets/app_image.dart';
 import '../../domain/entites/movie.dart';
 
 class MovieCard extends StatelessWidget {
-  final Movie movie;
-  const MovieCard({super.key, required this.movie});
+  final Movie? movie;
+  final RecommendedMovie? recommendedMovie;
+  const MovieCard({super.key, this.movie, this.recommendedMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,9 @@ class MovieCard extends StatelessWidget {
                   ),
                 ),
                 height: MediaQuery.of(context).size.height * 0.55,
-                path: AppConstants.baseImageUrl(movie.backdropPath),
+                path: AppConstants.baseImageUrl(recommendedMovie != null
+                    ? recommendedMovie!.backdropPath ?? ""
+                    : movie!.backdropPath),
               )),
         ));
   }

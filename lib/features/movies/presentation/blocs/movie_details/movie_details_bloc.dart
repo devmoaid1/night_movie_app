@@ -31,7 +31,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     result.fold(
         (failure) => emit(state.copyWith(
             movieDetailsState: RequestState.error,
-            movieError: "couldn`t fetch movie details")),
+            movieError: "Something went wrong fetching movie details")),
         (movieDetails) => emit(state.copyWith(
             movieDetails: movieDetails,
             movieDetailsState: RequestState.loaded)));
@@ -45,7 +45,8 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
     result.fold(
         (failure) => emit(state.copyWith(
             recommendedMoviesState: RequestState.error,
-            recommendedMoviesError: "couldn`t fetch movie details")),
+            recommendedMoviesError:
+                "Something went wrong fetching Recommended movies")),
         (recommendations) => emit(state.copyWith(
             recommendedMovies: recommendations,
             recommendedMoviesState: RequestState.loaded)));
