@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:night_movie_app/features/movies/presentation/views/movies_screen.dart';
+import 'package:night_movie_app/features/movies/presentation/views/movie_details_screen.dart';
 
 class NightMovieApp extends StatelessWidget {
   const NightMovieApp({super.key});
@@ -20,7 +20,7 @@ class NightMovieApp extends StatelessWidget {
               scaffoldBackgroundColor: const Color(0xff303030),
               primarySwatch: Colors.blue,
             ),
-            home: const MoviesView(),
+            home: const MovieDetailsScreen(id: "663712"),
           );
         });
   }

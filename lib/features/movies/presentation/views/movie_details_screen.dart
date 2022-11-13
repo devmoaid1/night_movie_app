@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:night_movie_app/core/constants/app_colors.dart';
 import 'package:night_movie_app/features/movies/presentation/blocs/movie_details/movie_details_bloc.dart';
 
 import '../widgets/movie_poster.dart';
@@ -16,6 +17,7 @@ class MovieDetailsScreen extends StatelessWidget {
         ..add(GetMovieDetailsEvent(movieId: id))
         ..add(GetMovieRecommendedMoviesEvent(movieId: id)),
       child: Scaffold(
+        backgroundColor: AppColors.blueDark,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

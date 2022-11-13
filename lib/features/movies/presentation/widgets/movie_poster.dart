@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:night_movie_app/core/constants/app_constants.dart';
 
 import '../../../../core/enums/request_state.dart';
 import '../../../../core/widgets/app_image.dart';
@@ -23,9 +24,21 @@ class MoviePoster extends StatelessWidget {
             );
 
           case RequestState.loaded:
-            return const AppImage(
-              path: "",
-            );
+            return Stack(children: [
+              AspectRatio(
+                aspectRatio: 12 / 8,
+                child: AppImage(
+                    path: AppConstants.baseImageUrl(
+                        state.movieDetails!.posterPath!),
+                    fit: BoxFit.fill),
+              ),
+              Positioned(
+                top: 20,
+                left: 10,
+                child: Icon(Icons.arrow_back_ios,
+                    color: Colors.white, size: 25.sp),
+              )
+            ]);
 
           case RequestState.error:
             return Center(

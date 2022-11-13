@@ -52,22 +52,6 @@ class PopularSection extends StatelessWidget {
               ),
             );
         }
-
-        // return FadeIn(
-        //   duration: const Duration(milliseconds: 500),
-        //   child: SizedBox(
-        //     height: 180.h,
-        //     child: ListView.builder(
-        //         shrinkWrap: true,
-        //         scrollDirection: Axis.horizontal,
-        //         padding: EdgeInsets.symmetric(vertical: 5.h),
-        //         itemCount: state.nowPlayingMovies.length,
-        //         itemBuilder: (context, index) {
-        //           final movie = state.nowPlayingMovies[index];
-        //           return MovieCard(movie: movie);
-        //         }),
-        //   ),
-        // );
       },
     );
   }

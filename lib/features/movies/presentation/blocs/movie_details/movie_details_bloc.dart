@@ -32,9 +32,9 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
         (failure) => emit(state.copyWith(
             movieDetailsState: RequestState.error,
             movieError: "couldn`t fetch movie details")),
-        (movieDetails) => state.copyWith(
+        (movieDetails) => emit(state.copyWith(
             movieDetails: movieDetails,
-            movieDetailsState: RequestState.loaded));
+            movieDetailsState: RequestState.loaded)));
   }
 
   FutureOr<void> _mapGetMovieRecommendedMoviesEventToState(
@@ -46,8 +46,8 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
         (failure) => emit(state.copyWith(
             recommendedMoviesState: RequestState.error,
             recommendedMoviesError: "couldn`t fetch movie details")),
-        (recommendations) => state.copyWith(
+        (recommendations) => emit(state.copyWith(
             recommendedMovies: recommendations,
-            recommendedMoviesState: RequestState.loaded));
+            recommendedMoviesState: RequestState.loaded)));
   }
 }
