@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:night_movie_app/features/movies/presentation/views/movie_details_screen.dart';
+
+import 'core/routes/route_helper.dart';
 
 class NightMovieApp extends StatelessWidget {
   const NightMovieApp({super.key});
@@ -12,7 +15,10 @@ class NightMovieApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
+          return GetMaterialApp(
+            navigatorKey: Get.key,
+            initialRoute: RouteHelper.initialRoute,
+            getPages: RouteHelper.routes,
             debugShowCheckedModeBanner: false,
             title: 'Night Movie',
             theme: ThemeData(

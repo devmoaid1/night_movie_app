@@ -13,6 +13,8 @@ class MovieDetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+      buildWhen: (previous, current) =>
+          previous.movieDetailsState != current.movieDetailsState,
       builder: (context, state) {
         switch (state.movieDetailsState) {
           case RequestState.loaded:

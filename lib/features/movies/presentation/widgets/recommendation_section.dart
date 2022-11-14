@@ -13,6 +13,8 @@ class RecommendationsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+      buildWhen: (previous, current) =>
+          previous.recommendedMoviesState != current.recommendedMoviesState,
       builder: (context, state) {
         switch (state.recommendedMoviesState) {
           case RequestState.loading:
