@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:night_movie_app/core/constants/app_constants.dart';
 
 import '../../../../core/enums/request_state.dart';
@@ -22,7 +23,7 @@ class MoviePoster extends StatelessWidget {
         switch (state.movieDetailsState) {
           case RequestState.loading:
             return SizedBox(
-              height: MediaQuery.of(context).size.height * 35,
+              height: MediaQuery.of(context).size.height * 0.35,
               child: const Center(child: CircularProgressIndicator.adaptive()),
             );
 
@@ -40,8 +41,11 @@ class MoviePoster extends StatelessWidget {
                 Positioned(
                   top: 20,
                   left: 10,
-                  child: Icon(Icons.arrow_back_ios,
-                      color: Colors.white, size: 25.sp),
+                  child: InkWell(
+                    onTap: () => Get.back(),
+                    child: Icon(Icons.arrow_back_ios,
+                        color: Colors.white, size: 25.sp),
+                  ),
                 )
               ]),
             );

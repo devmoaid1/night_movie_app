@@ -22,37 +22,44 @@ void setupLocator() {
   Get.lazyPut(() => Dio());
   Get.lazyPut(() => AppInterceptor());
   Get.lazyPut(() => LogInterceptor());
-  Get.lazyPut<ApiProvider>(() => DioConsumer(client: Get.find()));
+  Get.lazyPut<ApiProvider>(() => DioConsumer(client: Get.find()), fenix: true);
 
   // remote data sources
   Get.lazyPut<MoviesRemoteDataSource>(
       () => MoviesRemoteDataSourceImpl(apiProvider: Get.find()));
 
   Get.lazyPut<MovieDetailsRemoteDataSource>(
-      () => MovieDetailsRemoteDataSourceImpl(apiProvider: Get.find()));
+      () => MovieDetailsRemoteDataSourceImpl(apiProvider: Get.find()),
+      fenix: true);
 
   // repositories
   Get.lazyPut<MoviesRepository>(
       () => MoviesRepositoryImpl(moviesRemoteDataSource: Get.find()));
 
   Get.lazyPut<MovieDetailsRepository>(
-      () => MovieDetailsRepositoryImpl(movieDetailsDataSource: Get.find()));
+      () => MovieDetailsRepositoryImpl(movieDetailsDataSource: Get.find()),
+      fenix: true);
 
   // use cases
   Get.lazyPut(() => GetNowPlayingMovies(moviesRepository: Get.find()));
   Get.lazyPut(() => GetPopularMovies(moviesRepository: Get.find()));
   Get.lazyPut(() => GetTopRatedMovies(moviesRepository: Get.find()));
 
-  Get.lazyPut(() => GetMovieDetailsUseCase(movieDetailsRepository: Get.find()));
-  Get.lazyPut(() =>
-      GetMovieRecommendedMoviesUseCase(movieDetailsRepository: Get.find()));
+  Get.lazyPut(() => GetMovieDetailsUseCase(movieDetailsRepository: Get.find()),
+      fenix: true);
+  Get.lazyPut(
+      () =>
+          GetMovieRecommendedMoviesUseCase(movieDetailsRepository: Get.find()),
+      fenix: true);
   //blocs
   Get.lazyPut(() => MoviesBloc(
       getNowPlayingMovies: Get.find(),
       getPopularMovies: Get.find(),
       getTopRatedMovies: Get.find()));
 
-  Get.lazyPut(() => MovieDetailsBloc(
-      getMovieDetailsUseCase: Get.find(),
-      getMovieRecommendedMoviesUseCase: Get.find()));
+  Get.lazyPut(
+      () => MovieDetailsBloc(
+          getMovieDetailsUseCase: Get.find(),
+          getMovieRecommendedMoviesUseCase: Get.find()),
+      fenix: true);
 }

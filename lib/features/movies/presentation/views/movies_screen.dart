@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:night_movie_app/core/routes/route_helper.dart';
 import 'package:night_movie_app/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 
 import '../widgets/now_playing_movies_section.dart';
@@ -31,23 +32,30 @@ class MoviesViewBody extends StatelessWidget {
           ..add(GetNowPlayingMoviesEvent())
           ..add(GetPopularMoviesEvent())
           ..add(GetTopRatedMoviesEvent()),
-        child: const CustomScrollView(
+        child: CustomScrollView(
           slivers: [
             // now playing  section
-            SliverToBoxAdapter(child: NowPlayingMoviesSection()),
+            const SliverToBoxAdapter(child: NowPlayingMoviesSection()),
 
             // popular  section
             SliverToBoxAdapter(
-              child: TitleRow(title: "Popular"),
+              child: TitleRow(
+                title: "Popular",
+                onTap: () => Get.toNamed(RouteHelper.allMoviesRoute,
+                    arguments: "Popular"),
+              ),
             ),
-            SliverToBoxAdapter(child: PopularSection()),
+            const SliverToBoxAdapter(child: PopularSection()),
 
             // top rated section
 
             SliverToBoxAdapter(
-              child: TitleRow(title: "Top Rated"),
+              child: TitleRow(
+                  title: "Top Rated",
+                  onTap: () => Get.toNamed(RouteHelper.allMoviesRoute,
+                      arguments: "Top Rated")),
             ),
-            SliverToBoxAdapter(child: TopRatedSection())
+            const SliverToBoxAdapter(child: TopRatedSection())
           ],
         ));
   }

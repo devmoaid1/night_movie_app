@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:night_movie_app/core/constants/app_colors.dart';
-import 'package:night_movie_app/features/movies/presentation/blocs/movie_details/movie_details_bloc.dart';
 
 import '../widgets/movie_description_section.dart';
 import '../widgets/movie_details_section.dart';
@@ -15,23 +12,18 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MovieDetailsBloc>(
-      create: (context) => Get.find<MovieDetailsBloc>()
-        ..add(GetMovieDetailsEvent(movieId: id))
-        ..add(GetMovieRecommendedMoviesEvent(movieId: id)),
-      child: Scaffold(
-        backgroundColor: AppColors.blueDark,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                MoviePoster(),
-                MovieDetailsSection(),
-                MovieDescriptionSection(),
-                RecommendationsSection()
-              ],
-            ),
+    return Scaffold(
+      backgroundColor: AppColors.blueDark,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              MoviePoster(),
+              MovieDetailsSection(),
+              MovieDescriptionSection(),
+              RecommendationsSection()
+            ],
           ),
         ),
       ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:night_movie_app/features/movies/domain/entites/recommended_movie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/routes/route_helper.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../domain/entites/movie.dart';
 
@@ -17,6 +19,13 @@ class MovieCard extends StatelessWidget {
     return InkWell(
         onTap: () {
           // navigate to product details page
+          if (movie != null) {
+            Get.toNamed(RouteHelper.movieDetailsRoute,
+                arguments: movie!.id.toString());
+          } else if (recommendedMovie != null) {
+            Get.toNamed(RouteHelper.movieDetailsRoute,
+                arguments: recommendedMovie!.id.toString());
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -43,7 +52,7 @@ class MovieCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.55,
                 path: AppConstants.baseImageUrl(recommendedMovie != null
                     ? recommendedMovie!.backdropPath ?? ""
-                    : movie!.backdropPath),
+                    : movie?.backdropPath ?? ""),
               )),
         ));
   }

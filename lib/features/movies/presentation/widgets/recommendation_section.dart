@@ -19,7 +19,7 @@ class RecommendationsSection extends StatelessWidget {
         switch (state.recommendedMoviesState) {
           case RequestState.loading:
             return SizedBox(
-              height: MediaQuery.of(context).size.height * 35,
+              height: MediaQuery.of(context).size.height * 0.35,
               child: const Center(child: CircularProgressIndicator.adaptive()),
             );
 
