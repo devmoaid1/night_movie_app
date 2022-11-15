@@ -10,7 +10,12 @@ class AllMoviesBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MoviesBloc, MoviesState>(builder: (context, state) {
+    return BlocBuilder<MoviesBloc, MoviesState>(buildWhen: (previous, current) {
+      if (page == "popular") {
+        return previous.popularState != current.popularState;
+      }
+      return previous.topRatedState != current.topRatedState;
+    }, builder: (context, state) {
       if (page == "Popular") {
         return MoviesHandlerWidget(
             requestState: state.popularState, movies: state.popularMovies);

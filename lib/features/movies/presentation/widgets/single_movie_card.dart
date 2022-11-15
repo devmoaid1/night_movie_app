@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:night_movie_app/core/routes/route_helper.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entites/movie.dart';
@@ -12,6 +14,8 @@ class SingleMovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () => Get.toNamed(RouteHelper.movieDetailsRoute,
+          arguments: movie!.id.toString()),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 8.w),
         margin: EdgeInsets.symmetric(vertical: 5.h),
